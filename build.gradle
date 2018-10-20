@@ -29,7 +29,10 @@ ext {
 }
 
 dependencies {
+
+	compileOnly 'org.projectlombok:lombok:1.18.2'
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	implementation('org.springframework.boot:spring-boot-devtools')
 	implementation('org.springframework.cloud:spring-cloud-starter-config')
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
