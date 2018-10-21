@@ -1,6 +1,5 @@
 package pl.kamiluchnast.configclient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,7 +23,10 @@ public class SapOrder {
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
-    public SapOrder(MagOrder magOrder) {
+    public SapOrder() {
+    }
+
+    SapOrder(MagOrder magOrder) {
         this.id = "MAG" + magOrder.getId();
         this.magentoId = magOrder.getMagentoId();
         this.createdAt = magOrder.getCreatedAt();
