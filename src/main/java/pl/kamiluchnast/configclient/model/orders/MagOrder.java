@@ -1,4 +1,4 @@
-package pl.kamiluchnast.configclient;
+package pl.kamiluchnast.configclient.model.orders;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,9 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @Data
-public class SapOrder {
+public class MagOrder {
 
     private String id;
+
     @JsonProperty("magento_id")
     private Long magentoId;
 
@@ -23,12 +24,5 @@ public class SapOrder {
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
-    public SapOrder() {
-    }
-
-    SapOrder(MagOrder magOrder) {
-        this.id = "MAG" + magOrder.getId();
-        this.magentoId = magOrder.getMagentoId();
-        this.createdAt = magOrder.getCreatedAt();
-    }
 }
+

@@ -1,4 +1,4 @@
-package pl.kamiluchnast.configclient;
+package pl.kamiluchnast.configclient.rest.controllers;
 
 
 import org.springframework.amqp.core.AmqpTemplate;
@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
+import pl.kamiluchnast.configclient.model.orders.MagOrder;
+import pl.kamiluchnast.configclient.model.orders.SapOrder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +20,7 @@ public class OrderController {
 
     private LinkedList<MagOrder> orders;
 
-    @Value("${rabbitmq.routing_key.sap}")
+    @Value("${rabbitmq.queue.name.sap.orders}")
     private String routingKey;
 
     @Autowired
@@ -32,8 +34,13 @@ public class OrderController {
     public Mono<SapOrder> createOrder(@RequestBody MagOrder magOrder) {
         orders.add(magOrder);
         SapOrder sapOrder = new SapOrder(magOrder);
-        rabbitClient.convertAndSend("sap", routingKey, sapOrder);
+        rabbitClient.convertAndSend("", routingKey, sapOrder);
         return Mono.just(sapOrder);
+    }
+
+    @PostMapping("/sap")
+    public Mono<String> readSapOrder(@RequestBody SapOrder sapOrder) {
+        return Mono.just("ok");
     }
 
     @GetMapping("/sap")
